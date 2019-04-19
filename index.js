@@ -22,15 +22,27 @@ mongoose.connect(
 
 app.post('/create', async (req, res) => {
 	try {
-		const newCarte = new Carte({
-			nom: req.body.nom,
-			prix: req.body.prix,
-			taille: req.body.taille,
-			capacite: req.body.capacite,
-			description: req.body.description
-		});
-		await newCarte.save();
-		res.json({ newCarte });
+		if (
+			!(
+				req.body.nom === '' ||
+				req.body.prix === '' ||
+				req.body.taille === '' ||
+				req.body.capacite === '' ||
+				req.body.description === ''
+			)
+		) {
+			const newCarte = new Carte({
+				nom: req.body.nom,
+				prix: req.body.prix,
+				taille: req.body.taille,
+				capacite: req.body.capacite,
+				description: req.body.description
+			});
+			await newCarte.save();
+			res.json({ newCarte });
+		} else {
+			return res.status(400).json({ error: 'Tous les champs doit être remplis' });
+		}
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}
@@ -48,7 +60,16 @@ app.get('/', async (req, res) => {
 // **Update**
 app.post('/update', async (req, res) => {
 	try {
-		if (req.body.id) {
+		if (
+			req.body.id &&
+			!(
+				req.body.nom === '' ||
+				req.body.prix === '' ||
+				req.body.taille === '' ||
+				req.body.capacite === '' ||
+				req.body.description === ''
+			)
+		) {
 			const updateCarte = await Carte.findOne({ _id: req.body.id });
 			(updateCarte.nom = req.body.nom),
 				(updateCarte.prix = req.body.prix),
@@ -58,7 +79,7 @@ app.post('/update', async (req, res) => {
 			await updateCarte.save();
 			res.json({ updateCarte });
 		} else {
-			res.status(400).json({ message: 'Missing parameter' });
+			return res.status(400).json({ error: 'Tous les champs doit être remplis' });
 		}
 	} catch (error) {
 		res.status(400).json({ error: error.message });
