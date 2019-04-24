@@ -10,7 +10,7 @@ app.use(cors());
 const Carte = require('./models/model');
 const mongoose = require('mongoose');
 mongoose.connect(
-	process.env.MONGODB_URI || 'mongodb://localhost/Carte',
+	process.env.MONGODB_URI,
 	{
 		useNewUrlParser: true
 	},
