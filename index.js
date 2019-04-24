@@ -8,10 +8,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const Carte = require('./models/model');
-const MONGODB_URI = 'mongodb://heroku_l2ft4tzz:3b0b5m28k4qdkd6t55jg3n5tuo@ds147096.mlab.com:47096/heroku_l2ft4tzz';
+// const MONGODB_URI = 'mongodb://heroku_l2ft4tzz:3b0b5m28k4qdkd6t55jg3n5tuo@ds147096.mlab.com:47096/heroku_l2ft4tzz';
 const mongoose = require('mongoose');
 mongoose.connect(
-	MONGODB_URI || 'mongodb://localhost/Carte',
+	process.env.MONGODB_URI || 'mongodb://localhost/Carte',
+	{
+		useNewUrlParser: true
+	},
 	{
 		useNewUrlParser: true
 	},
