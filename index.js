@@ -11,7 +11,8 @@ const Carte = require('./models/model');
 
 const mongoose = require('mongoose');
 mongoose.connect(
-	'mongodb://localhost/Carte',
+	'mongodb://heroku_l2ft4tzz:3b0b5m28k4qdkd6t55jg3n5tuo@ds147096.mlab.com:47096/heroku_l2ft4tzz' ||
+		'mongodb://localhost/Carte',
 	{
 		useNewUrlParser: true
 	},
@@ -103,6 +104,6 @@ app.post('/delete', async (req, res) => {
 	}
 });
 
-app.listen(3600, () => {
+app.listen(process.env.PORT || 3600, () => {
 	console.log('Server started');
 });
