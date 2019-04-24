@@ -11,8 +11,7 @@ const Carte = require('./models/model');
 
 const mongoose = require('mongoose');
 mongoose.connect(
-	'mongodb://heroku_l2ft4tzz:3b0b5m28k4qdkd6t55jg3n5tuo@ds147096.mlab.com:47096/heroku_l2ft4tzz' ||
-		'mongodb://localhost/Carte',
+	MONGODB_URI || 'mongodb://localhost/Carte',
 	{
 		useNewUrlParser: true
 	},
